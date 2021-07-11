@@ -1,24 +1,30 @@
 package Easy;
 
-import java.util.Scanner;
-
-import static java.lang.System.exit;
-
 public class Longest_Common_Prefix {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String[] arr = {"flower", "fow", "flight","fault"};
-        String commonprefix=" ";
-        for (int i = 0; i < arr[0].length(); i++) {
-            char index=arr[0].charAt(i);
-            for (int j = 1; j < arr.length; j++) {
-                if (index != arr[j].charAt(i)) {
-                    System.out.println(commonprefix);
-                    exit(0);
+    public static String commPrefix(String[] arr) {
+        int index = 0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i].length() < arr[i - 1].length()) {
+                index = i;
+            }
+        }
+        String minItem = arr[index];
+        String result="";
+
+        loop: for (int i = 0; i < minItem.length(); i++) {
+            for (int j = 0; j < arr.length; j++) {
+                if (minItem.charAt(i) != arr[j].charAt(i)) {
+                    break loop;
                 }
             }
-            commonprefix+=index;
+            result+=minItem.charAt(i);
         }
-        System.out.println(commonprefix);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        String[] arr = {"flower","flow",""};
+        System.out.println(commPrefix(arr));
+
     }
 }
